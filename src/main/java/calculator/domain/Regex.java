@@ -29,7 +29,7 @@ public class Regex {
         if (rule == RegexRule.NORMAL_DELIMITER) {
             delimiter = "[,:]";
             numberString = matcher.group(1);
-        } else if (rule == RegexRule.CUSTOM_DELIMITER) {
+        } else { // rule == RegexRule.CUSTOM_DELIMITER인 경우
             String delimiter_list = matcher.group(1);
             delimiter = Arrays.stream(delimiter_list.split(""))
                     .map(Pattern::quote)
