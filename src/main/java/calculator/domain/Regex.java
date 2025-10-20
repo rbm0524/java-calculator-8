@@ -39,7 +39,13 @@ public class Regex {
 
         try {
             return Arrays.stream(numberString.split(delimiter))
-                    .map(Integer::parseInt)
+                    .map(s -> {
+                        int number = Integer.parseInt(s);
+                        if (number < 0) {
+                            throw new IllegalArgumentException("음수는 입력할 수 없습니다: ");
+                        }
+                        return number;
+                    })
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
