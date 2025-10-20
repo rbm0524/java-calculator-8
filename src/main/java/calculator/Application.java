@@ -16,7 +16,7 @@ public class Application {
         // 메인 로직
         Regex regex = new Regex();
         Calculator calculator = new Calculator();
-        ArrayList<Integer> numbers = regex.analyze_string(input);
+        ArrayList<Integer> numbers = regex.analyzeString(input);
         result = calculator.calc(numbers);
 
         // 출력하기
