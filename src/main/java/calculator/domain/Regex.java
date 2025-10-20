@@ -6,9 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-// 문자열을 입력받아 유효성을 검사하는 클래스
+/**
+ * 문자열을 입력받아 유효성을 검사하는 클래스
+ */
 public class Regex {
-    public ArrayList<Integer> analyze_string(String input) {
+    public ArrayList<Integer> analyzeString(String input) {
         return Arrays.stream(RegexRule.values())
                 .map(rule -> new Object[]{rule, rule.getPattern().matcher(input)})
                 .filter(data -> ((Matcher) data[1]).matches())
