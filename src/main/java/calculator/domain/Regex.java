@@ -13,13 +13,13 @@ public class Regex {
     }
 
     public ArrayList<Integer> analyze_string(String input) {
-        //
         return Arrays.stream(RegexRule.values())
                 .map(rule -> new Object[]{rule, rule.getPattern().matcher(input)})
                 .filter(data -> ((Matcher) data[1]).matches())
                 .findFirst()
                 .map(data -> parseNumbers((RegexRule) data[0], (Matcher) data[1]))
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "지원하지 않는 입력 형식이거나 구분자가 연속/마지막에 사용되었습니다."));
     }
 
     public ArrayList<Integer> parseNumbers(RegexRule rule, Matcher matcher) {
@@ -34,7 +34,10 @@ public class Regex {
             delimiter = "[,:]";
             numberString = matcher.group(1);
         } else if (rule == RegexRule.CUSTOM_DELIMITER) {
-            delimiter = Pattern.quote(matcher.group(1));
+            String delimiter_list = matcher.group(1);
+            delimiter = Arrays.stream(delimiter_list.split(""))
+                    .map(Pattern::quote)
+                    .collect(Collectors.joining("|"));
             numberString = matcher.group(2);
         }
 
@@ -44,7 +47,7 @@ public class Regex {
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
-                    "\"잘못된 값을 입력했습니다.\\n쉼표(,) 또는 콜론(:)을 구분자로 가지는 문자열이어야 합니다.\\n커스텀 구분자를 사용하려면 문자열 맨 앞부분의 //와 \\\\n 사이에 원하는 구분자를 위치하게 해주세요.\"",
+                    "입력값에 숫자가 아닌 문자가 포함되었습니다.",
                     e);
         }
     }
