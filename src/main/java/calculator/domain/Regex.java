@@ -8,10 +8,6 @@ import java.util.stream.Collectors;
 
 // 문자열을 입력받아 유효성을 검사하는 클래스
 public class Regex {
-
-    public Regex() {
-    }
-
     public ArrayList<Integer> analyze_string(String input) {
         return Arrays.stream(RegexRule.values())
                 .map(rule -> new Object[]{rule, rule.getPattern().matcher(input)})
