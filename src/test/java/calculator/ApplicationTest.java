@@ -99,7 +99,31 @@ class ApplicationTest extends NsTest {
     @Test
     void 덧셈_예외_테스트() {
         assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("a,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 덧셈_예외_테스트2() {
+        assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1,a,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 덧셈_예외_테스트3() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,2,a"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 덧셈_예외_테스트4() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//{\\n1{a{3"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -166,6 +190,38 @@ class ApplicationTest extends NsTest {
     void 커스텀_구분자가_빈_문자열3() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("//\\n1234,23"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 완전히_유효하지_않은_문자열() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("..."))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 완전히_유효하지_않은_문자열2() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(";*#%"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 완전히_유효하지_않은_문자열3() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("aabb"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 완전히_유효하지_않은_문자열4() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("a12"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
