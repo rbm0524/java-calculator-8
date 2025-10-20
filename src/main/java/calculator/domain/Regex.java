@@ -42,7 +42,7 @@ public class Regex {
                     .map(s -> {
                         int number = Integer.parseInt(s);
                         if (number < 0) {
-                            throw new IllegalArgumentException("음수는 입력할 수 없습니다: ");
+                            throw new IllegalArgumentException("음수는 입력할 수 없습니다: " + number);
                         }
                         return number;
                     })
