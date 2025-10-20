@@ -57,6 +57,14 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 커스텀_구분자_사용2() {
+        assertSimpleTest(() -> {
+            run("//;\\n");
+            assertThat(output()).contains("결과 : 0");
+        });
+    }
+
+    @Test
     void 커스텀_구분자_여러개_사용() {
         assertSimpleTest(() -> {
             run("//;[\\n1;2[3;4");
@@ -71,23 +79,6 @@ class ApplicationTest extends NsTest {
             assertThat(output()).contains("결과 : 15");
         });
     }
-
-    @Test
-    void 커스텀_구분자가_빈_문자열() {
-        assertSimpleTest(() -> {
-            run("//\\n");
-            assertThat(output()).contains("결과 : 0");
-        });
-    }
-
-    @Test
-    void 커스텀_구분자가_빈_문자열2() {
-        assertSimpleTest(() -> {
-            run("//\\n123");
-            assertThat(output()).contains("결과 : 6");
-        });
-    }
-
 
     @Test
     void 음수_예외_테스트() {
@@ -143,6 +134,30 @@ class ApplicationTest extends NsTest {
     void 구분자로_끝나는_예외_테스트2() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("//&\\n1&2&3&"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 커스텀_구분자가_빈_문자열() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//\\n"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 커스텀_구분자가_빈_문자열2() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//\\n1234"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 커스텀_구분자가_빈_문자열3() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//\\n1234,23"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
