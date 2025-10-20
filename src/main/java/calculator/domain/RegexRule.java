@@ -2,7 +2,9 @@ package calculator.domain;
 
 import java.util.regex.Pattern;
 
-// 유효한 문자열 정의
+/**
+ * 유효한 문자열 정의
+ */
 public enum RegexRule {
     NO_STRING("^$"), // 빈 문자열의 합은 0으로 간주합니다.
     CUSTOM_DELIMITER_NO_STRING("^//(\\D+)\\\\n$"), // 구분자만 지정한 문자열도 합을 0으로 간주합니다.
