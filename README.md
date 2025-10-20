@@ -23,6 +23,8 @@
     - [x] 문자열에 숫자를 제외한 다른 문자가 있을 경우 `IllegalArgumentException`을 발생시킨다.
     - [x] 문자열이 정해진 구분자로 분리되지 않을 경우 `IllegalArgumentException`을 발생시킨다.
     - [x] 커스텀 구분자를 지정했지만 다른 구분자를 사용한 경우 `IllegalArgumentException`을 발생시킨다.
+    - [x] "//"와 "\n" 사이의 문자가 빈 문자열이면 `IllegalArgumentException`을 발생시킨다.(//\n123이 1+2+3인지 123인지 구분되지
+      않는 것을 방지한다.)
     - [x] 구분자로 문자열이 끝나는 경우 `IllegalArgumentException`을 발생시킨다.
 - [x] 입출력 처리
     - [x] 사용자로부터 덧셈할 문자열을 입력받는다.
